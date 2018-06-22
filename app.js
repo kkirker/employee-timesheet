@@ -46,4 +46,47 @@ function createEmployee(name, role, date, rate){
         Rate: rate
     });
 
+    $('#table').empty();
+
+
+    database.ref().on('child_added', function(snapshot){
+
+        let val = snapshot.val();
+        console.log(snapshot);
+        console.log(val.Name);
+
+        $('#table').append(
+            `
+            <li class="list-group-item"><div class="container">
+            <div class="row">
+              <div class="col-sm">
+              ${val.Name}
+              </div>
+              <div class="col-sm">
+              ${val.Role}
+              </div>
+              <div class="col-sm">
+              ${val.StartDate}
+              </div>
+              <div class="col-sm">
+         
+              </div>
+              <div class="col-sm">
+              ${val.Rate}
+              </div>
+              <div class="col-sm">
+
+              </div>
+            </div>
+          </div></li>
+            
+            
+            `
+        )
+
+
+       
+
+    });
+
 }
