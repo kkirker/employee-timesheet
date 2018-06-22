@@ -52,8 +52,16 @@ function createEmployee(name, role, date, rate){
     database.ref().on('child_added', function(snapshot){
 
         let val = snapshot.val();
-        console.log(snapshot);
-        console.log(val.Name);
+        //console.log(snapshot);
+       // console.log(val.Name);
+
+       let monthsWorked = convertDate(val.StartDate);
+       let start = val.Rate;
+
+       let totalBilled = parseInt(monthsWorked) * parseInt(start);
+       
+
+
 
         $('#table').append(
             `
@@ -69,13 +77,13 @@ function createEmployee(name, role, date, rate){
               ${val.StartDate}
               </div>
               <div class="col-sm">
-         
+              ${monthsWorked}
               </div>
               <div class="col-sm">
               ${val.Rate}
               </div>
               <div class="col-sm">
-
+              ${totalBilled}
               </div>
             </div>
           </div></li>
@@ -88,5 +96,31 @@ function createEmployee(name, role, date, rate){
        
 
     });
+
+    function convertDate(startDate){
+
+    //     console.log(startDate);
+
+    //     //Get the time now 
+    //     let todayDate = Date.now();
+    //     console.log(todayDate);
+
+
+    //    //Convert the startDate into a different time format  
+    //    let convertedTime = Date(startDate);
+    //    console.log(convertedTime);
+
+    //    var array = new Array();
+
+    //    array = startDate.split('/');
+    //     let mili = Date.UTC(array[2], array[0], array[1]);
+    //     console.log(mili);
+
+        return monthsWorked = Math.abs(moment().diff(moment(startDate), 'months'));
+
+
+    //    var convertedTime_utc =  Date.UTC(date.getUTCFullYear(), date.getUTCMonth(), date.getUTCDate(),
+    //     date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+    }
 
 }
